@@ -22,7 +22,7 @@ function App() {
     //only html goes in the return statment
     <> 
   {/* rendering another component */}
-    <div className='min-h-screen transition-colors duration-500  bg-gradient-to-br from-black via-blue-800 to-blue-600 text-gray-100'>
+    <div className='min-h-screen transition-colors duration-500  bg-gradient-to-br from-gray-800 via-gray-750 to-yellow-200 text-gray-100'>
    <Navbar/>
     <h1 className='to be use if we decide to use tailwindcss for styling(i recommend it)'>Restaurant MGMT says hi</h1>
     </div>
