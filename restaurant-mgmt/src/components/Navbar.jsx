@@ -16,8 +16,8 @@ export default function Navbar() {
   ];
 //using tailwind css. Maybe tricky to read, but compared to regular css, is much quicker to implement
   return (
-    <nav className={`  sticky top-5 z-50  text-black py-50'} `}>
-      <div className="bg-gray-900/60 rounded-2xl max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+      <div className="bg-linear-to-r from-[#5B775B] to-[#A9DDA9]  rounded-2xl w-full mt-4 mx-auto px-4 ">
         <div className="flex items-center justify-between h-16">
           <h1 className="text-2xl">RESTAURENT MGMT SYSTEM</h1>
           <div className="flex-shrink-0 flex items-center">
@@ -34,7 +34,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             <button 
             //   onClick={() => navigate('/')}
-              className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium text-blue-300 hover:bg-gray-700`}
+              className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium text-white hover:bg-gray-700`}
             >
               <HiHome className="mr-1" /> Home
             </button>
@@ -44,18 +44,13 @@ export default function Navbar() {
               <button
                 key={item.label}
                 // onClick={() => navigate(`/`)}
-                className={`px-3 py-2 rounded-xl text-sm font-medium text-blue-300 hover:bg-gray-700 `}
+                className={`px-3 py-2 rounded-xl text-sm font-medium text-white hover:bg-gray-700 `}
               >
                 {item.label} 
               </button>
             ))}
 
-            <button
-            //   onClick={() => navigate('/dashboard')}
-              className={`px-3 py-2 rounded-md text-sm font-medium text-blue-300 hover:bg-gray-700`}
-            >
-              Dashboard
-            </button>
+            
 
            
 
@@ -69,6 +64,6 @@ export default function Navbar() {
     
         </div>
       </div>
-    </nav>
+  
   );
 }
