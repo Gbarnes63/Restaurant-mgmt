@@ -53,8 +53,8 @@ erDiagram
 
     ORDERS {
         integer id PK
-        integer table_id FK
-        integer staff_id FK
+        integer table_id 
+        integer staff_id 
         timestamp order_time
         varchar(20) status
         decimal total_amount
@@ -67,8 +67,8 @@ erDiagram
 
     ORDER_ITEMS {
         integer id PK
-        integer order_id FK
-        integer menu_item_id FK
+        integer order_id 
+        integer menu_item_id 
         integer quantity
         text special_instructions
         varchar(20) status
@@ -78,7 +78,7 @@ erDiagram
 
     STAFF_SCHEDULES {
         integer id PK
-        integer staff_id FK
+        integer staff_id 
         date shift_date
         time start_time
         time end_time
@@ -102,11 +102,11 @@ erDiagram
 
     INVENTORY_USAGE {
         integer id PK
-        integer inventory_id FK
-        integer menu_item_id FK
-        decimalquantity_used
+        integer inventory_id
+        integer menu_item_id 
+        decimal quantity_used
         date usage_date
-        integer staff_id FK
+        integer staff_id
         text notes
         timestamp created_at
     }
@@ -120,4 +120,5 @@ erDiagram
     MENU_ITEMS ||--o{ INVENTORY_USAGE : "uses"
     ORDERS ||--o{ ORDER_ITEMS : "contains"
     INVENTORY ||--o{ INVENTORY_USAGE : "tracked_in"
+
 ```
