@@ -40,7 +40,7 @@ erDiagram
         integer id PK
         varchar(100) item_name
         varchar(50) category
-        decimal(10,3) quantity
+        decimal quantity
         varchar(20) unit
         varchar(100) supplier
         date last_restock_date
