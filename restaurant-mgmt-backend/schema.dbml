@@ -2,7 +2,7 @@
 
 
 Project restaurant_management_system {
-  database_type: 'Sqlite3'
+  database_type: 'PostgreSQL'
   Note: 'Schema for restaurant management'
 }
 
