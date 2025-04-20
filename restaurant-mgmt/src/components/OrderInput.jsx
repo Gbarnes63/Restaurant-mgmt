@@ -3,7 +3,7 @@ import { CiPizza } from "react-icons/ci";
 export default function OrderInput() {
   return (
     <>
-      <div className="mt-10 border-2 border-blue-500 flex justify-center  grid-cols-2 gap-3 w-full h-4/5">
+      <div className="mt-10  flex justify-center  grid-cols-2 gap-3 w-full h-4/5">
         <div className="flex flex-col items-center bg-linear-to-b from-[#3B4851] to-[#737373]  rounded-2xl h-full w-1/5 justify-between">
           {" "}
           {/* Added justify-between */}
@@ -11,21 +11,21 @@ export default function OrderInput() {
             {" "}
             {/* Added wrapper for all content except button */}
             <h1 className="mt-4 flex justify-center text-2xl">Order</h1>
-            <div className="border-2 border-amber-400 w-full flex justify-between gap-3">
+            <div className="w-full flex justify-between gap-3">
               <div>
                 <h1 className="font-medium">Item Name</h1>
                 <p className="font-medium">£ 3</p>
               </div>
               <p className="text-sm justify-end">Units: 3</p>
             </div>
-            <div className="border-2 border-amber-400 w-full flex justify-between gap-3">
+            <div className="w-full flex justify-between gap-3">
               <div>
                 <h1 className="font-medium">Item Name</h1>
                 <p className="font-medium">£ 3</p>
               </div>
               <p className="text-sm justify-end">Units: 3</p>
             </div>
-            <div className="border-2 border-amber-400 w-full flex justify-between gap-3">
+            <div className=" w-full flex justify-between gap-3">
               <div>
                 <h1 className="font-medium">Item Name</h1>
                 <p className="font-medium">£ 3</p>
@@ -44,7 +44,7 @@ export default function OrderInput() {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 grid-rows-3   gap-x-5 gap-y-6 m-5 rounded-xl  w-4/5 border-2 border-red-400 ,t">
+        <div className="grid grid-cols-4 grid-rows-3   gap-x-5 gap-y-6 m-5 rounded-xl  w-4/5 ">
           <Tile />
           <Tile />
           <Tile />
