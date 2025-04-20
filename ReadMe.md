@@ -28,8 +28,8 @@ erDiagram
         varchar(100) name
         text description
         varchar(50) category
-        decimal(10,2) price
-        decimal(10,2) cost
+        decimal price
+        decimal cost
         boolean is_available
         integer preparation_time
         timestamp created_at
