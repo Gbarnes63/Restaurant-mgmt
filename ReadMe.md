@@ -45,7 +45,7 @@ erDiagram
         varchar(100) supplier
         date last_restock_date
         date next_restock_date
-        decimal(10,3) min_quantity
+        decimal min_quantity
         varchar(20) status
         timestamp created_at
         timestamp updated_at
@@ -57,7 +57,7 @@ erDiagram
         integer staff_id FK
         timestamp order_time
         varchar(20) status
-        decimal(10,2) total_amount
+        decimal total_amount
         varchar(30) payment_method
         varchar(20) payment_status
         text notes
@@ -104,7 +104,7 @@ erDiagram
         integer id PK
         integer inventory_id FK
         integer menu_item_id FK
-        decimal(10,3) quantity_used
+        decimalquantity_used
         date usage_date
         integer staff_id FK
         text notes
