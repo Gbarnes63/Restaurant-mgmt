@@ -1,0 +1,138 @@
+
+
+
+Project restaurant_management_system {
+  database_type: 'Sqlite3'
+  Note: 'Schema for restaurant management'
+}
+
+Table staff {
+    id integer [primary key, increment]
+    first_name varchar(50) [not null]
+    last_name varchar(50) [not null]
+    role varchar(30) [not null] 
+    email varchar(100) [unique]
+    phone varchar(20)
+    created_at timestamp 
+    updated_at timestamp
+}
+
+
+Table restaurant_tables {
+    id integer [primary key, increment]
+    table_number varchar(10) 
+    capacity integer [not null]
+    location varchar(50) 
+    status varchar(20) 
+    created_at timestamp
+    updated_at timestamp 
+}
+
+// Menu items
+Table menu_items {
+    id integer [primary key, increment]
+    name varchar(100) [not null]
+    description text
+    category varchar(50) [not null] 
+    price decimal(10,2) [not null]
+    cost decimal(10,2) [not null]
+    is_available boolean
+    preparation_time integer 
+    created_at timestamp 
+    updated_at timestamp 
+}
+
+// Inventory
+Table inventory {
+    id integer [primary key, increment]
+    item_name varchar(100) [not null]
+    category varchar(50) [not null] // e.g., 'produce', 'dairy', 'meat', 'dry goods'
+    quantity decimal(10,3) [not null]
+    unit varchar(20) [not null] // e.g., 'kg', 'g', 'L', 'items'
+    supplier varchar(100)
+    last_restock_date date
+    next_restock_date date
+    min_quantity decimal(10,3) [not null]
+    status varchar(20)
+    created_at timestamp 
+    updated_at timestamp 
+}
+
+// Orders
+Table orders {
+    id integer [primary key, increment]
+    table_id integer [not null]
+    staff_id integer [not null] 
+    order_time timestamp 
+    status varchar(20) 
+    total_amount decimal(10,2)
+    payment_method varchar(30) 
+    payment_status varchar(20) 
+    notes text
+    created_at timestamp 
+    updated_at timestamp 
+}
+
+Table order_items {
+    id integer [primary key, increment]
+    order_id integer [not null]
+    menu_item_id integer [not null]
+    quantity integer [not null]
+    special_instructions text
+    status varchar(20) 
+    created_at timestamp 
+    updated_at timestamp 
+}
+
+
+Table staff_schedules {
+    id integer [primary key, increment]
+    staff_id integer [not null]
+    shift_date date [not null]
+    start_time time [not null]
+    end_time time [not null]
+
+ 
+    status varchar(20) 
+    created_at timestamp 
+    updated_at timestamp 
+}
+
+// Reservations
+Table reservations {
+    id integer [primary key, increment]
+    table_id integer [not null]
+    customer_name varchar(100) [not null]
+    customer_phone varchar(20) [not null]
+    customer_email varchar(100)
+    reservation_time timestamp [not null]
+    party_size integer [not null]
+    status varchar(20) 
+    special_requests text
+    created_at timestamp 
+}
+
+// Inventory usage tracking
+Table inventory_usage {
+    id integer [primary key, increment]
+    inventory_id integer [not null]
+    menu_item_id integer
+    quantity_used decimal(10,3) [not null]
+    usage_date date [not null]
+    staff_id integer [not null] // staff who recorded the usage
+    notes text
+    created_at timestamp 
+}
+
+// Relationships
+Ref: orders.table_id > restaurant_tables.id
+Ref: orders.staff_id > staff.id
+Ref: order_items.order_id > orders.id
+Ref: order_items.menu_item_id > menu_items.id
+Ref: staff_schedules.staff_id > staff.id
+Ref: reservations.table_id > restaurant_tables.id
+Ref: inventory_usage.inventory_id > inventory.id
+Ref: inventory_usage.menu_item_id > menu_items.id
+Ref: inventory_usage.staff_id > staff.id
+
+Ref: "orders"."staff_id" < "orders"."notes"
