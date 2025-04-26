@@ -1,5 +1,6 @@
 import { CiPizza } from "react-icons/ci";
 import { PiBowlFood } from "react-icons/pi";
+import { FaPlusCircle } from "react-icons/fa";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -103,9 +104,9 @@ function Tile({ name, price, description,  setOrderArray }) {
         </div>
         <button
           onClick={addItemToOrder}
-          className="bg-[#5B775B] rounded-4xl px-4 py-2 w-11/12 mb-3 hover:translate-y-0.5 hover:bg-[#517151]"
+          className="flex justify-between items-center bg-[#5B775B] rounded-4xl px-4 py-2 w-11/12 mb-3 hover:translate-y-0.5 hover:bg-[#517151]"
         >
-          Add item+
+          Add item <FaPlusCircle/>
         </button>
       </div>
     </div>
