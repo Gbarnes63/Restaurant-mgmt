@@ -2,7 +2,14 @@ from flask import Flask, jsonify, request
 import sqlite3
 from datetime import datetime
 
+
+from flask_cors import CORS
+
+
+# Flask app initialization
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])
+# Enable CORS for all routes
 DATABASE = 'restaurant.db'
 
 def get_db_connection():
@@ -39,6 +46,31 @@ def get_staff_member(staff_id):
             'success': False,
             'error': str(e)
         }), 500
+    
 
-      
+@app.route('/api/menu-items', methods=['GET'])
+def get_menu_items():
+    try:
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+       
+        cursor.execute("SELECT * FROM menu_items")
+        menu_items = cursor.fetchall()
+       
+        conn.close()
+       
+        return jsonify({
+            'success': True,
+            'data': [dict(item) for item in menu_items]  
+        })
+    except Exception as e:
+        
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+
 app.run(host='0.0.0.0', port=5001)
