@@ -73,4 +73,28 @@ def get_menu_items():
 
 
 
+@app.route('/api/create order', methods=['POST'])
+def get_menu_items():
+    try:
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+       
+        cursor.execute("SELECT * FROM menu_items")#change to insert query
+        
+       
+        conn.close()
+       
+        return jsonify({
+            'success': True,
+            'data': 'db response'
+        })
+    except Exception as e:
+        
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 app.run(host='0.0.0.0', port=5001)
