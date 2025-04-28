@@ -1,7 +1,6 @@
 import { FaUserCircle, FaSun, FaMoon } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
-
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
     //used for navigating between routes i.e pages
@@ -50,9 +49,9 @@ export default function Navbar() {
               </button>
             ))}
 
-            
 
-           
+
+
 
             <div className="ml-4 flex items-center md:ml-6">
               <button className="flex items-center space-x-2">
