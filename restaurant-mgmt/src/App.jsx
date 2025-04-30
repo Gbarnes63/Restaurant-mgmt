@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import OrderInput from "./components/OrderInput";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StaffMGMT from "./components/StaffMGMT.jsx";
+import LoginSection from "./components/Login.jsx";
 
 //import component in another file(recommended)
 
@@ -28,10 +29,13 @@ function App() {
           <div className="min-h-screen transition-colors duration-500   text-gray-100 bg-[#FFF9C4]">
             <div className=" flex flex-col">
               <Layout>
-                  <Routes>
+                  {/* <Routes>
                       <Route path="/" element={<OrderInput />} />
-                      <Route path="/StaffMGMT" element={<StaffMGMT />} />
-                  </Routes>
+                      <Route path="/S
+                      taffMGMT" element={<StaffMGMT />} />
+                  </Routes> */}
+                  <LoginSection/>
+
               </Layout>
             </div>
           </div>
