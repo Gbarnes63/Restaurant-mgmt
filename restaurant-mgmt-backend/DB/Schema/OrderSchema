@@ -1,0 +1,57 @@
+Table orders {
+    id integer [primary key]
+    table_number integer [not null, ref: > restaurant_tables.table_number]
+    staff_id integer [not null, ref: > staff.id]
+    order_time timestamp
+    status varchar(20)
+    total_amount decimal(10,2)
+    payment_method varchar(30)
+    payment_status varchar(20)
+    notes text
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table order_items {
+    id integer [primary key]
+    order_id integer [not null, ref: > orders.id]
+    menu_item_id integer [not null, ref: > menu_items.id]
+    quantity integer [not null]
+    special_instructions text
+    status varchar(20)
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table menu_items {
+    id integer [primary key]
+    name varchar(100)
+    description text
+    category varchar(50)
+    price decimal(10,2)
+    cost decimal(10,2)
+    is_available boolean
+    preparation_time integer
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table restaurant_tables {
+    table_number integer [primary key]
+    capacity integer
+    location varchar(50)
+    status varchar(20)
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table staff {
+    id integer [primary key]
+    first_name varchar(50)
+    last_name varchar(50)
+    role varchar(30)
+    email varchar(100)
+    phone varchar(20)
+    created_at timestamp
+    updated_at timestamp
+}
