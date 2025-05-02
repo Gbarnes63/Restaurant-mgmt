@@ -6,6 +6,7 @@ class DatabaseHandler:
         self.db_name = db_name
         print(self.db_name)
         self.conn = sqlite3.connect(self.db_name)
+        self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
 
     def perform_query(self, query, params=()):

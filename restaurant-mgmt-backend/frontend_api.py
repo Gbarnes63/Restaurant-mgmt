@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request
 import sqlite3
 from datetime import datetime
+import json
 
 
 from flask_cors import CORS
 
 from Classes.InventorySystem import InventorySystem
+
 
 # Flask app initialization
 app = Flask(__name__)
@@ -61,7 +63,7 @@ def get_menu_items():
        
         return jsonify({
             'success': True,
-            'data': menu_items
+            'data': [dict(item) for item in menu_items]  
         })
     
 
