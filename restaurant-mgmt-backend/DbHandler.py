@@ -4,6 +4,7 @@ class DatabaseHandler:
     def __init__(self, db_name="default.db"):
    
         self.db_name = db_name
+        print(self.db_name)
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()
 

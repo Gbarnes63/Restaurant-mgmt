@@ -5,6 +5,7 @@ from datetime import datetime
 
 from flask_cors import CORS
 
+from Classes.InventorySystem import InventorySystem
 
 # Flask app initialization
 app = Flask(__name__)
@@ -50,26 +51,19 @@ def get_staff_member(staff_id):
 
 @app.route('/api/menu-items', methods=['GET'])
 def get_menu_items():
-    try:
+   
+  
         
-        conn = get_db_connection()
-        cursor = conn.cursor()
-       
-        cursor.execute("SELECT * FROM menu_items")
-        menu_items = cursor.fetchall()
-       
-        conn.close()
+        inventory_sys_instance = InventorySystem(1,[])
+
+        menu_items = inventory_sys_instance.getMenuItems()
+        print(menu_items)
        
         return jsonify({
             'success': True,
-            'data': [dict(item) for item in menu_items]  
+            'data': menu_items
         })
-    except Exception as e:
-        
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 500
+    
 
 
 
