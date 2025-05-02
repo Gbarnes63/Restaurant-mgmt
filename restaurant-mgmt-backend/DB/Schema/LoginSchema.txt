@@ -1,0 +1,18 @@
+Table staff {
+    id integer [primary key]
+    first_name varchar(50)
+    last_name varchar(50)
+    role varchar(30)
+    email varchar(100) [unique]
+    phone varchar(20)
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table staff_login {
+    id integer [primary key]
+    staff_id integer [not null, ref: > staff.id]
+    username varchar(50) [unique]
+    password_hash varchar(255)
+    
+}
