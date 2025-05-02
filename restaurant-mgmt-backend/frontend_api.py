@@ -74,7 +74,7 @@ def get_menu_items():
 
 
 @app.route('/api/create order', methods=['POST'])
-def get_menu_items():
+def create_order():
     try:
         
         conn = get_db_connection()
