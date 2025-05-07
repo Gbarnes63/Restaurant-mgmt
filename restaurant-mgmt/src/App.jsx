@@ -21,26 +21,20 @@ function AnotherComponent() {
 // this function is a React component
 function App() {
   return (
-      // if you have multiple html tags, in a return statement, you need to enclose it in <div></div> or <></>
-      //only html goes in the return statement
-      <BrowserRouter>
-        <>
-          {/* rendering another component */}
-          <div className="min-h-screen transition-colors duration-500   text-gray-100 bg-[#FFF9C4]">
-            <div className=" flex flex-col">
-              <Layout>
-                  {/* <Routes>
-                      <Route path="/" element={<OrderInput />} />
-                      <Route path="/S
-                      taffMGMT" element={<StaffMGMT />} />
-                  </Routes> */}
-                  <LoginSection/>
 
-              </Layout>
-            </div>
-          </div>
-        </>
-      </BrowserRouter>
+    // if you have multiple html tags, in a return statement, you need to enclose it in <div></div> or <></>
+    //only html goes in the return statment
+    <>
+      {/* rendering another component */}
+      <div className="min-h-screen transition-colors duration-500   text-gray-100">
+        <div className=" flex flex-col">
+          <Layout>
+            <OrderInput/>
+          </Layout>
+        </div>
+      </div>
+    </>
+
   );
 }
 export default App; //components need to have export default functionName. only once per file...use for the parent component
@@ -55,7 +49,7 @@ export default App; //components need to have export default functionName. only 
 // }
 
 function Layout({children}) {
-  return (
+  return(
     <>
       <div className="  w-4/5 h-screen mx-auto px-4">
         <Navbar />

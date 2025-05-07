@@ -1,0 +1,49 @@
+Table inventory {
+    id integer [primary key]
+    item_name varchar(100) [not null]
+    category varchar(50) [not null]
+    quantity decimal(10,3) [not null]
+    unit varchar(20) [not null]
+    supplier varchar(100)
+    last_restock_date date
+    next_restock_date date
+    min_quantity decimal(10,3) [not null]
+    status varchar(20)
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table inventory_usage {
+    id integer [primary key]
+    inventory_id integer [not null, ref: > inventory.id]
+    menu_item_id integer [ref: > menu_items.id]
+    quantity_used decimal(10,3) [not null]
+    usage_date date [not null]
+    staff_id integer [not null, ref: > staff.id]
+    notes text
+    created_at timestamp
+}
+
+Table menu_items {
+    id integer [primary key]
+    name varchar(100) [not null]
+    description text
+    category varchar(50) [not null]
+    price decimal(10,2) [not null]
+    cost decimal(10,2) [not null]
+    is_available boolean
+    preparation_time integer
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table staff {
+    id integer [primary key]
+    first_name varchar(50)
+    last_name varchar(50)
+    role varchar(30)
+    email varchar(100) [unique]
+    phone varchar(20)
+    created_at timestamp
+    updated_at timestamp
+}
