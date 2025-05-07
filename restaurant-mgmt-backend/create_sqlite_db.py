@@ -37,8 +37,59 @@ def create_logins_db():
     print("LoginsDB setup complete with mock data!")
 
 def create_orders_db():
-    """Create the OrdersDB database and initialize the orders-related tables."""
+    """Create the OrdersDB database and initialize the tables."""
     db = DatabaseHandler(db_name="./DB/OrdersDB.db")
+
+    # Create Restaurant Tables table with table_number as the primary key
+    db.perform_query("""
+    CREATE TABLE IF NOT EXISTS restaurant_tables (
+        table_number INTEGER PRIMARY KEY,
+        description TEXT,
+        location TEXT,
+        capacity INTEGER NOT NULL
+    )
+    """)
+
+    # Insert mock restaurant tables data
+    restaurant_tables_mock_data = [
+        (1, "Window-side table", "Near entrance", 4),
+        (2, "Cozy corner booth", "Back section", 6),
+        (3, "Patio seating", "Outdoor area", 2),
+        (4, "Large family table", "Center area", 8),
+        (5, "Bar counter seat", "Near bar", 1)
+    ]
+
+    for table in restaurant_tables_mock_data:
+        db.perform_query("""
+        INSERT INTO restaurant_tables (table_number, description, location, capacity) 
+        VALUES (?, ?, ?, ?)
+        """, table)
+
+    # Create Staff table
+    db.perform_query("""
+    CREATE TABLE IF NOT EXISTS staff (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        role TEXT NOT NULL,
+        contact_info TEXT,
+        hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    # Insert mock staff data
+    staff_mock_data = [
+        ("Alice Johnson", "Manager", "alice@example.com"),
+        ("Bob Smith", "Chef", "bob@example.com"),
+        ("Charlie Davis", "Waiter", "charlie@example.com"),
+        ("Diana Lee", "Bartender", "diana@example.com"),
+        ("Edward Wilson", "Host", "edward@example.com")
+    ]
+
+    for staff_member in staff_mock_data:
+        db.perform_query("""
+        INSERT INTO staff (name, role, contact_info) 
+        VALUES (?, ?, ?)
+        """, staff_member)
 
     # Create Orders table
     db.perform_query("""
@@ -91,7 +142,10 @@ def create_orders_db():
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, order)
 
+    print("Restaurant Tables:", db.fetch_all("SELECT * FROM restaurant_tables"))
+    print("Staff Members:", db.fetch_all("SELECT * FROM staff"))
     print("Orders:", db.fetch_all("SELECT * FROM orders"))
+
     db.close_connection()
     print("OrdersDB setup complete with mock data!")
 
