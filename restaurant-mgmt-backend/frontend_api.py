@@ -113,7 +113,7 @@ def create_order():
             return jsonify({'success': False, 'error': 'Missing required fields'}), 400
 
         # Create an Order object
-        order = Order(orderID=1, tableID=1,staffID=1, items=menu_items, status="Pending")
+        order = Order(orderID=1, tableID=table_id,staffID=1, items=menu_items, status="Pending")
        
 
         # Process order using OrderInputService

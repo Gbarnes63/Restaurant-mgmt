@@ -7,6 +7,9 @@ import axios from "axios";
 export default function OrderInput() {
   const [menuItems, setMenuItems] = useState([]);
   const [orderArray, setOrderArray] = useState([]);
+  const [tableNumber, setTableNumber] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -16,14 +19,29 @@ export default function OrderInput() {
       })
       .catch((error) => {
         console.error("Error fetching menu items:", error);
+        setErrorMessage("Failed to load menu items.");
       });
   }, []);
 
   const submitOrder = (orderArray) => {
-    // Convert orderArray into the required format
+    if (!tableNumber) {
+      setErrorMessage("Please enter a table number.");
+      setSuccessMessage("");
+      return;
+    }
+
+    if (orderArray.length === 0) {
+      setErrorMessage("Please add items to the order.");
+      setSuccessMessage("");
+      return;
+    }
+
+    setErrorMessage("");
+    setSuccessMessage("");
+
     const formattedOrder = {
-      table_number: 1, // Fixed table number
-      staff_id: 2, // Fixed staff ID
+      table_number: parseInt(tableNumber),
+      staff_id: 2,
       menu_items: orderArray.map((item) => ({
         name: item.name,
         itemid: item.id,
@@ -32,16 +50,21 @@ export default function OrderInput() {
       })),
     };
 
-    console.log("Formatted Order:", formattedOrder); // Debugging
+    console.log("Formatted Order:", formattedOrder);
 
-    // Send the POST request
     axios
       .post("http://localhost:5001/api/create_order", formattedOrder)
       .then((response) => {
         console.log("Order submitted successfully:", response.data);
+        setOrderArray([]);
+        setTableNumber("");
+        setSuccessMessage("Order placed successfully!");
+        setErrorMessage("");
       })
       .catch((error) => {
         console.error("Error submitting order:", error);
+        setErrorMessage("Failed to place order. Please try again.");
+        setSuccessMessage("");
       });
   };
 
@@ -53,22 +76,46 @@ export default function OrderInput() {
         <div className="flex flex-col items-center bg-linear-to-b from-[#3B4851] to-[#737373] rounded-2xl h-full w-1/5 justify-between">
           <div className="w-4/5">
             <h1 className="mt-4 flex justify-center text-2xl">Order</h1>
+            <div>
+              <input
+                type="number"
+                id="tableNumber"
+                name="tableNumber"
+                value={tableNumber}
+                onChange={(e) => setTableNumber(e.target.value)}
+                required
+                className="w-full p-2 border border-gray-600 rounded-2xl mt-3 mb-3 text-white placeholder-white "
+                placeholder="Enter table number"
+              />
+            </div>
             {orderArray.map((item, index) => (
               <OrderItem key={index} itemData={item} />
             ))}
           </div>
           <div className="flex flex-col w-full items-center">
-            <div className="flex justify-between w-3/5 font-bold">
-              <p>Total</p>
-              <p>
-                £{" "}
-                {orderArray
-                  .reduce(
-                    (total, item) => total + item.price * item.quantity,
-                    0
-                  )
-                  .toFixed(2)}
-              </p>
+            {errorMessage && (
+              <div className="bg-red-200 text-red-700 border border-red-700 rounded p-2 mb-2 w-4/5 text-center">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="bg-green-200 text-green-700 border border-green-700 rounded p-2 mb-2 w-4/5 text-center">
+                {successMessage}
+              </div>
+            )}
+            <div className="w-4/5 font-bold mb-2">
+              <div className="flex justify-between">
+                <p>Total</p>
+                <p>
+                  £{" "}
+                  {orderArray
+                    .reduce(
+                      (total, item) => total + item.price * item.quantity,
+                      0
+                    )
+                    .toFixed(2)}
+                </p>
+              </div>
             </div>
             <button
               onClick={() => submitOrder(orderArray)}
@@ -76,7 +123,6 @@ export default function OrderInput() {
             >
               Place order
             </button>
-            ;
           </div>
         </div>
 
