@@ -8,10 +8,9 @@ class OrderInputService:
         self.inventory_system = InventorySystem(inventoryID=None, items=order.items if order else [])
 
     def process_order(self):
-        if not self.order:
-            return {"success": False, "error": "No order data provided for processing"}
-
-        print(self.order.items)
+      
+      
+        print(list(self.order.items))
         try:
             # Insert order into orders table
             self.db.perform_query("""
@@ -23,6 +22,7 @@ class OrderInputService:
             order_id = self.db.fetch_one("SELECT last_insert_rowid()")[0]
 
             # Insert each menu item to order_items
+           
             for item in self.order.items:
                 self.db.perform_query("""
                     INSERT INTO order_items (order_id, menu_item_id, quantity, status, created_at, updated_at)

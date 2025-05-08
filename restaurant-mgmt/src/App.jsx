@@ -1,13 +1,16 @@
 import { useState } from "react"; //way to import libraries too
 import Navbar from "./components/Navbar";
 import OrderInput from "./components/OrderInput";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import StaffMGMT from "./components/StaffMGMT.jsx";
+import LoginSection from "./components/Login.jsx";
 
-//import component in anohter file(recommened)
+//import component in another file(recommended)
 
 //styles
 import "./App.css";
 
-//components need to start in a capital letter i think
+//components need to start in a capital letter I think
 function AnotherComponent() {
   return (
     <>
@@ -15,9 +18,10 @@ function AnotherComponent() {
     </>
   );
 }
-// this function is a react component
+// this function is a React component
 function App() {
   return (
+
     // if you have multiple html tags, in a return statement, you need to enclose it in <div></div> or <></>
     //only html goes in the return statment
     <>
@@ -30,6 +34,7 @@ function App() {
         </div>
       </div>
     </>
+
   );
 }
 export default App; //components need to have export default functionName. only once per file...use for the parent component
