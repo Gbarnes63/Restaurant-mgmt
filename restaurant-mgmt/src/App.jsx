@@ -4,6 +4,7 @@ import OrderInput from "./components/OrderInput";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StaffMGMT from "./components/StaffMGMT.jsx";
 import LoginSection from "./components/Login.jsx";
+import OrderKitchenView from "./components/OrderKitchenView.jsx";
 
 //import component in another file(recommended)
 
@@ -29,7 +30,7 @@ function App() {
       <div className="min-h-screen transition-colors duration-500   text-gray-100">
         <div className=" flex flex-col">
           <Layout>
-            <OrderInput/>
+            <OrderKitchenView />
           </Layout>
         </div>
       </div>
