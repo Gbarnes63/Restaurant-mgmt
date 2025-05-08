@@ -124,5 +124,20 @@ def create_order():
 
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
+    
+
+@app.route('/api/fetch_order', methods=['GET'])
+def fetch_order():
+    try:
+       
+
+        # Process order using OrderInputService
+        order_service = OrderInputService(None)
+        response = order_service.get_order(None)
+
+        return jsonify(response)
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 app.run(host='0.0.0.0', port=5001)
