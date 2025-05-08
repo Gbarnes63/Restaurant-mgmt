@@ -10,7 +10,7 @@ class OrderInputService:
     def process_order(self):
       
       
-        print(list(self.order.items))
+       
         try:
             # Insert order into orders table
             self.db.perform_query("""
