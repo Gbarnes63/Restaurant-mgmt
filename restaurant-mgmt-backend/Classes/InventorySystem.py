@@ -27,6 +27,6 @@ class InventorySystem:
             return {"success": False, "error": str(e)}
 
     def getMenuItems(self):
-        print('i was called')
+      
         return self.databasehandler.fetch_all("SELECT * FROM menu_items")
 

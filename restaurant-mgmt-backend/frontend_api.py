@@ -61,7 +61,7 @@ def get_menu_items():
         inventory_sys_instance = InventorySystem(1,[])
 
         menu_items = inventory_sys_instance.getMenuItems()
-        print(menu_items)
+        # print(menu_items)
        
         return jsonify({
             'success': True,
@@ -106,15 +106,34 @@ def create_order():
         staff_id = data.get("staff_id")
         menu_items = data.get("menu_items", [])
 
+       
+
+      
         if not table_id or not staff_id or not menu_items:
             return jsonify({'success': False, 'error': 'Missing required fields'}), 400
 
         # Create an Order object
-        order = Order(orderID=None, tableID=table_id,staffID=staff_id, items=menu_items, status="Pending")
+        order = Order(orderID=1, tableID=table_id,staffID=1, items=menu_items, status="Pending")
+       
 
         # Process order using OrderInputService
         order_service = OrderInputService(order)
         response = order_service.process_order()
+
+        return jsonify(response)
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+    
+
+@app.route('/api/fetch_order', methods=['GET'])
+def fetch_order():
+    try:
+       
+
+        # Process order using OrderInputService
+        order_service = OrderInputService(None)
+        response = order_service.get_order(None)
 
         return jsonify(response)
 

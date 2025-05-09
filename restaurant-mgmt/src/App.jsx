@@ -1,4 +1,5 @@
 import { useState } from "react"; //way to import libraries too
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./components/Home";
 import Reservations from "./components/Reservations";
 import Navbar from "./components/Navbar";
@@ -6,7 +7,7 @@ import OrderInput from "./components/OrderInput";
 import StaffMGMT from "./components/StaffMGMT";
 import InventoryMGMT from "./components/InventoryMGMT";
 import LoginSection from "./components/Login";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import OrderKitchenView from "./components/OrderKitchenView";
 
 //import component in another file(recommended)
 
@@ -30,7 +31,7 @@ function App() {
       <BrowserRouter>
           <>
               {/* rendering another component */}
-              <div className="min-h-screen transition-colors duration-500   text-gray-100 bg-[#FFF9C4]">
+              <div className="min-h-screen transition-colors duration-500   text-gray-100">
                   <div className=" flex flex-col">
                       <Layout>
                           <Routes>
@@ -39,6 +40,7 @@ function App() {
                               <Route path="/OrderInput" element={<OrderInput />} />
                               <Route path="/Reservations" element={<Reservations />} />
                               <Route path="/InventoryMGMT" element={<InventoryMGMT />} />
+                              <Route path="/OrderKitchenView" element={<OrderKitchenView/>} />
                           </Routes>
                       </Layout>
                   </div>

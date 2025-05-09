@@ -37,8 +37,90 @@ def create_logins_db():
     print("LoginsDB setup complete with mock data!")
 
 def create_orders_db():
-    """Create the OrdersDB database and initialize the orders-related tables."""
+    """Create the OrdersDB database and initialize the tables, including menu_items."""
     db = DatabaseHandler(db_name="./DB/OrdersDB.db")
+
+    # Create Restaurant Tables table with table_number as the primary key
+    db.perform_query("""
+    CREATE TABLE IF NOT EXISTS restaurant_tables (
+        table_number INTEGER PRIMARY KEY,
+        description TEXT,
+        location TEXT,
+        capacity INTEGER NOT NULL
+    )
+    """)
+
+    # Insert mock restaurant tables data
+    restaurant_tables_mock_data = [
+        (1, "Window-side table", "Near entrance", 4),
+        (2, "Cozy corner booth", "Back section", 6),
+        (3, "Patio seating", "Outdoor area", 2),
+        (4, "Large family table", "Center area", 8),
+        (5, "Bar counter seat", "Near bar", 1)
+    ]
+
+    for table in restaurant_tables_mock_data:
+        db.perform_query("""
+        INSERT INTO restaurant_tables (table_number, description, location, capacity)
+        VALUES (?, ?, ?, ?)
+        """, table)
+
+    # Create Staff table
+    db.perform_query("""
+    CREATE TABLE IF NOT EXISTS staff (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        role TEXT NOT NULL,
+        contact_info TEXT,
+        hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    # Insert mock staff data
+    staff_mock_data = [
+        ("Alice Johnson", "Manager", "alice@example.com"),
+        ("Bob Smith", "Chef", "bob@example.com"),
+        ("Charlie Davis", "Waiter", "charlie@example.com"),
+        ("Diana Lee", "Bartender", "diana@example.com"),
+        ("Edward Wilson", "Host", "edward@example.com")
+    ]
+
+    for staff_member in staff_mock_data:
+        db.perform_query("""
+        INSERT INTO staff (name, role, contact_info)
+        VALUES (?, ?, ?)
+        """, staff_member)
+
+    # Create Menu Items table
+    db.perform_query("""
+    CREATE TABLE IF NOT EXISTS menu_items (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        description TEXT,
+        price DECIMAL(10, 2) NOT NULL,
+        category TEXT
+    )
+    """)
+
+    # Insert mock menu items data
+    menu_items_mock_data = [
+        ("Margherita Pizza", "Classic pizza with tomato, mozzarella, and basil", 12.99, "Pizza"),
+        ("Pepperoni Pizza", "Pizza with tomato sauce, mozzarella, and pepperoni", 14.99, "Pizza"),
+        ("Caesar Salad", "Romaine lettuce, croutons, parmesan cheese, and Caesar dressing", 8.99, "Salads"),
+        ("Greek Salad", "Tomatoes, cucumbers, onions, olives, and feta cheese", 9.50, "Salads"),
+        ("Burger", "Beef patty with lettuce, tomato, onion, and cheese on a bun", 10.50, "Burgers"),
+        ("Fries", "Crispy golden french fries", 4.50, "Sides"),
+        ("Coke", "Coca-Cola soft drink", 2.50, "Drinks"),
+        ("Water", "Bottled still water", 1.50, "Drinks"),
+        ("Pasta Carbonara", "Spaghetti with eggs, cheese, pancetta, and black pepper", 13.75, "Pasta"),
+        ("Garlic Bread", "Toasted bread with garlic and butter", 5.25, "Sides")
+    ]
+
+    for item in menu_items_mock_data:
+        db.perform_query("""
+        INSERT INTO menu_items (name, description, price, category)
+        VALUES (?, ?, ?, ?)
+        """, item)
 
     # Create Orders table
     db.perform_query("""
@@ -87,13 +169,31 @@ def create_orders_db():
 
     for order in orders_mock_data:
         db.perform_query("""
-        INSERT INTO orders (table_number, staff_id, order_time, status, total_amount, payment_method, payment_status, notes) 
+        INSERT INTO orders (table_number, staff_id, order_time, status, total_amount, payment_method, payment_status, notes)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, order)
 
-    print("Orders:", db.fetch_all("SELECT * FROM orders"))
+    # Insert mock order items data (linking orders to menu items)
+    order_items_mock_data = [
+        (1, 1, 2, None, "Completed"),  # Order 1: 2 x Margherita Pizza
+        (1, 6, 1, None, "Completed"),  # Order 1: 1 x Fries
+        (2, 3, 1, "No croutons", "Pending"), # Order 2: 1 x Caesar Salad
+        (2, 7, 2, None, "Pending"),  # Order 2: 2 x Coke
+        (3, 5, 1, "Well-done", "Preparing"), # Order 3: 1 x Burger
+        (3, 10, 1, None, "Preparing"), # Order 3: 1 x Garlic Bread
+        (4, 9, 1, "Extra parmesan", "Completed"), # Order 4: 1 x Pasta Carbonara
+        (5, 2, 1, None, "Pending"),  # Order 5: 1 x Pepperoni Pizza
+        (5, 4, 2, None, "Pending")   # Order 5: 2 x Greek Salad
+    ]
+
+    for item in order_items_mock_data:
+        db.perform_query("""
+        INSERT INTO order_items (order_id, menu_item_id, quantity, special_instructions, status)
+        VALUES (?, ?, ?, ?, ?)
+        """, item)
+
     db.close_connection()
-    print("OrdersDB setup complete with mock data!")
+    print("OrdersDB setup complete with menu_items and mock data!")
 
 
 def create_inventory_db():
