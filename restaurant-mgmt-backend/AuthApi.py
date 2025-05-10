@@ -48,5 +48,6 @@ def verify_jwt():
     else:
         return jsonify({'success': False, 'error': 'Invalid or expired JWT token'}), 401
 
-if __name__ == '__main__':
+def start_auth_api():
+   
     auth_app.run(host='0.0.0.0', port=5002) # Run on a different port to avoid conflict
