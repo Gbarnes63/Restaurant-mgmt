@@ -8,6 +8,7 @@ import StaffMGMT from "./components/StaffMGMT";
 import InventoryMGMT from "./components/InventoryMGMT";
 import LoginSection from "./components/Login";
 import OrderKitchenView from "./components/OrderKitchenView";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 //import component in another file(recommended)
 
@@ -23,43 +24,77 @@ function AnotherComponent() {
   );
 }
 // this function is a React component
+
 function App() {
   return (
-    // if you have multiple html tags, in a return statement, you need to enclose it in <div></div> or <></>
-    //only html goes in the return statement
     <BrowserRouter>
-    <>
-      {/* rendering another component */}
-      <div className="min-h-screen transition-colors duration-500   text-gray-100">
-        <div className=" flex flex-col">
-          <Routes>
-            <Route path="/login" element={<LoginSection />} />
-            <Route
-              path="/*"
-              element={
-                <Layout>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/StaffMGMT" element={<StaffMGMT />} />
-                    <Route path="/OrderInput" element={<OrderInput />} />
-                    <Route path="/Reservations" element={<Reservations />} />
-                    <Route
-                      path="/InventoryMGMT"
-                      element={<InventoryMGMT />}
-                    />
-                    <Route
-                      path="/OrderKitchenView"
-                      element={<OrderKitchenView />}
-                    />
-                  </Routes>
-                </Layout>
-              }
-            />
-          </Routes>
+      <>
+        <div className="min-h-screen transition-colors duration-500 text-gray-100">
+          <div className="flex flex-col">
+            <Routes>
+              <Route path="/login" element={<LoginSection />} />
+              <Route
+                path="/*"
+                element={
+                  <Layout>
+                    <Routes>
+                      <Route
+                        path="/"
+                        element={
+                          <ProtectedRoute>
+                            <Home />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/StaffMGMT"
+                        element={
+                          <ProtectedRoute>
+                            <StaffMGMT />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/OrderInput"
+                        element={
+                          <ProtectedRoute>
+                            <OrderInput />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/Reservations"
+                        element={
+                          <ProtectedRoute>
+                            <Reservations />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/InventoryMGMT"
+                        element={
+                          <ProtectedRoute>
+                            <InventoryMGMT />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/OrderKitchenView"
+                        element={
+                          <ProtectedRoute>
+                            <OrderKitchenView />
+                          </ProtectedRoute>
+                        }
+                      />
+                    </Routes>
+                  </Layout>
+                }
+              />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </>
-  </BrowserRouter>
+      </>
+    </BrowserRouter>
   );
 }
 export default App; //components need to have export default functionName. only once per file...use for the parent component
