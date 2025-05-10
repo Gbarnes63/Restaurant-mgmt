@@ -9,7 +9,8 @@ export default function Navbar() {
 //array of buttons of the navbar
 //storing them as an array and then mapping them on allows easy addition/removal of buttons wihout affecting styling
   const navItems = [
-    { label: 'Orders', path: '/OrderInput'},
+    { label: 'Place Orders', path: '/OrderInput'},
+    { label: 'View Orders', path: '/OrderkitchenView'},
     { label: 'Inventory',path: '/InventoryMGMT'},
     { label: 'Staff MGMT', path: '/StaffMGMT'},
     {label: 'Reservations', path: '/Reservations'}
@@ -50,11 +51,7 @@ export default function Navbar() {
               </button>
             ))}
 
-            <div className="ml-4 flex items-center md:ml-6">
-              <button className="flex items-center space-x-2">
-                <FaUserCircle size={24} className='text-blue-300' />
-              </button>
-            </div>
+           
           </div>
 
     
