@@ -1,5 +1,5 @@
 import { useState } from "react"; //way to import libraries too
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Reservations from "./components/Reservations";
 import Navbar from "./components/Navbar";
@@ -25,29 +25,41 @@ function AnotherComponent() {
 // this function is a React component
 function App() {
   return (
-
     // if you have multiple html tags, in a return statement, you need to enclose it in <div></div> or <></>
     //only html goes in the return statement
-      <BrowserRouter>
-          <>
-              {/* rendering another component */}
-              <div className="min-h-screen transition-colors duration-500   text-gray-100">
-                  <div className=" flex flex-col">
-                      <Layout>
-                          <Routes>
-                              <Route path="/" element={<Home />} />
-                              <Route path="/StaffMGMT" element={<StaffMGMT />} />
-                              <Route path="/OrderInput" element={<OrderInput />} />
-                              <Route path="/Reservations" element={<Reservations />} />
-                              <Route path="/InventoryMGMT" element={<InventoryMGMT />} />
-                              <Route path="/OrderKitchenView" element={<OrderKitchenView/>} />
-                          </Routes>
-                      </Layout>
-                  </div>
-              </div>
-          </>
-      </BrowserRouter>
-
+    <BrowserRouter>
+    <>
+      {/* rendering another component */}
+      <div className="min-h-screen transition-colors duration-500   text-gray-100">
+        <div className=" flex flex-col">
+          <Routes>
+            <Route path="/login" element={<LoginSection />} />
+            <Route
+              path="/*"
+              element={
+                <Layout>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/StaffMGMT" element={<StaffMGMT />} />
+                    <Route path="/OrderInput" element={<OrderInput />} />
+                    <Route path="/Reservations" element={<Reservations />} />
+                    <Route
+                      path="/InventoryMGMT"
+                      element={<InventoryMGMT />}
+                    />
+                    <Route
+                      path="/OrderKitchenView"
+                      element={<OrderKitchenView />}
+                    />
+                  </Routes>
+                </Layout>
+              }
+            />
+          </Routes>
+        </div>
+      </div>
+    </>
+  </BrowserRouter>
   );
 }
 export default App; //components need to have export default functionName. only once per file...use for the parent component
@@ -61,8 +73,8 @@ export default App; //components need to have export default functionName. only 
 //   )
 // }
 
-function Layout({children}) {
-  return(
+function Layout({ children }) {
+  return (
     <>
       <div className="  w-4/5 h-screen mx-auto px-4">
         <Navbar />
